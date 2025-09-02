@@ -1,0 +1,10 @@
+Aug 29 12:10:01 servername sshd[1001]: Failed password for invalid user admin from 203.0.113.10 port 51111 ssh2
+Aug 29 12:10:05 servername sshd[1002]: Failed password for root from 203.0.113.11 port 51112 ssh2
+Aug 29 12:10:07 servername sshd[1003]: Accepted password for user_a from 198.51.100.5 port 51113 ssh2
+Aug 29 12:10:09 servername sshd[1004]: Failed password for invalid user tester from 203.0.113.10 port 51114 ssh2
+Aug 29 12:10:15 servername sshd[1005]: Failed password for user_b from 198.51.100.5 port 51115 ssh2
+Aug 29 12:10:20 servername sshd[1006]: Accepted password for user_c from 192.0.2.22 port 51116 ssh2
+Aug 29 12:10:25 servername sshd[1007]: Failed password for invalid user oracle from 203.0.113.10 port 51117 ssh2
+Aug 29 12:10:30 servername sshd[1008]: Accepted password for root from 192.0.2.30 port 51118 ssh2
+Aug 29 12:10:35 servername sshd[1009]: Failed password for user_d from 198.51.100.5 port 51119 ssh2
+Aug 29 12:10:40 servername sshd[1010]: Failed password for invalid user guest from 203.0.113.11 port 51120 ssh2

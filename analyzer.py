@@ -1,70 +1,124 @@
 import sys
 import re
+import sqlite3
+from datetime import datetime
+
+DB_NAME = 'log_database.db'
+RESET_LOG_FILE = 'reset_log.txt'
+
+def parse_logs(log_file_path=None, log_content=None):
+    if not log_file_path and not log_content:
+        raise ValueError("Provide log_file_path or log_content.")
+
+    with sqlite3.connect(DB_NAME) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS logs (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_type TEXT,
+                user_account TEXT,
+                ip_address TEXT,
+                original_line TEXT
+            )
+        """)
+
+        ip_pattern = r"(\d{1,3}(?:\.\d{1,3}){3}|[a-fA-F0-9:]+)"
+        failed_pattern = re.compile(rf"Failed password for (?:invalid user\s+)?(\S+) from {ip_pattern}")
+        accepted_pattern = re.compile(rf"Accepted password for (\S+) from {ip_pattern}")
+
+        if log_content:
+            lines = log_content.splitlines()
+        else:
+            assert log_file_path is not None  # <-- tu
+            with open(log_file_path) as f:
+                lines = f.readlines()
+
+        for line in lines:
+            if match := failed_pattern.search(line):
+                user, ip = match.groups()
+                cursor.execute("INSERT INTO logs (event_type, user_account, ip_address, original_line) VALUES (?, ?, ?, ?)",
+                               ("FAILED_LOGIN", user, ip, line.strip()))
+            elif match := accepted_pattern.search(line):
+                user, ip = match.groups()
+                cursor.execute("INSERT INTO logs (event_type, user_account, ip_address, original_line) VALUES (?, ?, ?, ?)",
+                               ("ACCEPTED_LOGIN", user, ip, line.strip()))
+
+        return f"Data from logs added into database '{DB_NAME}'."
 
 
-def analyze_log_file(log_file_path):
+def generate_report():
     """
-    Analyzes a log file to count failed login attempts and
-    identify top attacking IP addresses.
+    Generates a report from the logs stored in the database.
     """
-    # Variables to store counts for different event types
-    failed_attempts = 0
-    accepted_connections = 0
-    ip_addresses = {}
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
 
-    # Define regex patterns for different event types
-    failed_pattern = re.compile(r"Failed password.*from (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})")
-    accepted_pattern = re.compile(r"Accepted password.*from (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})")
+    # Count successful and failed logins
+    event_counts = {}
+    cursor.execute("SELECT event_type, COUNT(*) FROM logs GROUP BY event_type")
+    for row in cursor:
+        event_type, count = row
+        event_counts[event_type] = count
 
-    try:
-        with open(log_file_path, 'r') as file:
-            for line in file:
-                # Check for failed login attempts
-                match_failed = failed_pattern.search(line)
-                if match_failed:
-                    failed_attempts += 1
-                    ip = match_failed.group(1)
-                    ip_addresses[ip] = ip_addresses.get(ip, 0) + 1
+    failed_count = event_counts.get('FAILED_LOGIN', 0)
+    accepted_count = event_counts.get('ACCEPTED_LOGIN', 0)
 
-                # Check for accepted connections
-                match_accepted = accepted_pattern.search(line)
-                if match_accepted:
-                    accepted_connections += 1
+    # Top 5 attacking IPs
+    top_ips = []
+    cursor.execute(
+        "SELECT ip_address, COUNT(*) FROM logs WHERE event_type = 'FAILED_LOGIN' "
+        "GROUP BY ip_address ORDER BY COUNT(*) DESC LIMIT 5"
+    )
+    for row in cursor:
+        ip, count = row
+        top_ips.append((ip, count))
 
-    except FileNotFoundError:
-        sys.exit(f"Error: File not found: {log_file_path}")
+    conn.close()
 
-    return failed_attempts, accepted_connections, ip_addresses
+    report = "\n" + "="*40
+    report += "\n        LOG ANALYSIS REPORT\n"
+    report += "="*40 + "\n"
+    report += f"Number of successful logins: {accepted_count}\n"
+    report += f"Number of failed login attempts: {failed_count}\n\n"
+    report += "Top 5 attacking IP addresses:\n"
+
+    if top_ips:
+        for ip, count in top_ips:
+            word = "attempt" if count == 1 else "attempts"
+            report += f" - {ip}: {count} {word}\n"
+    else:
+        report += " - No failed login attempts recorded.\n"
+
+    report += "="*40 + "\n"
+    return report
 
 
-def print_summary(failed_attempts, accepted_connections, ip_addresses):
+def reset_database():
     """
-    Prints the analysis summary to the console.
+    Clears all logs from the database and records the reset in a separate file.
     """
-    print("\n" + "="*40)
-    print("        LOG ANALYSIS SUMMARY")
-    print("="*40)
-    print(f"Total failed login attempts: {failed_attempts}")
-    print(f"Total accepted connections: {accepted_connections}")
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM logs")
+    conn.commit()
+    conn.close()
 
-    # Sort IP addresses by their occurance
-    print("\nTop attacking IP addresses:")
-    sorted_ips = sorted(ip_addresses.items(), key=lambda item: item[1], reverse=True)
-    for ip, count in sorted_ips[:5]:  # Show only 5 top
-        print(f" - {ip}: {count} attempts")
+    # Write reset info to separate file
+    with open(RESET_LOG_FILE, 'a') as f:
+        f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Database reset\n")
 
-    print("="*40 + "\n")
-
+    return f"Database has been reset. Reset logged in '{RESET_LOG_FILE}'."
 
 def main():
-    # Sprawdź czy użytkownik podał ścieżkę do pliku z logami jako argument.
     if len(sys.argv) < 2:
-        sys.exit("Usage: python3 analyzer.py <log_file>")
+        sys.exit("Usage: python3 analyzer.py <log_file> [--reset]")
 
-    log_file_path = sys.argv[1]
-
-    failed, accepted, ips = analyze_log_file(log_file_path)
-    print_summary(failed, accepted, ips)
+    if '--reset' in sys.argv:
+        print(reset_database())
+    else:
+        log_file_path = sys.argv[1]
+        print(parse_logs(log_file_path))
+        print(generate_report())
 
 
 if __name__ == "__main__":

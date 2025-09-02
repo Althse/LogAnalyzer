@@ -1,0 +1,10 @@
+Aug 30 08:15:01 server sshd[1001]: Failed password for invalid user admin from 203.0.113.1 port 51122 ssh2
+Aug 30 08:15:03 server sshd[1002]: Failed password for root from 203.0.113.1 port 51123 ssh2
+Aug 30 08:15:05 server sshd[1003]: Accepted password for user_a from 198.51.100.2 port 45678 ssh2
+Aug 30 08:15:06 server sshd[1004]: Failed password for user_b from 198.51.100.2 port 51124 ssh2
+Aug 30 08:15:08 server sshd[1005]: Failed password for invalid user tester from 203.0.113.1 port 51125 ssh2
+Aug 30 08:15:10 server sshd[1006]: Failed password for invalid user guest from 192.0.2.50 port 51126 ssh2
+Aug 30 08:15:12 server sshd[1007]: Accepted password for user_c from 203.0.113.5 port 45679 ssh2
+Aug 30 08:15:13 server sshd[1008]: Failed password for root from 203.0.113.5 port 51127 ssh2
+Aug 30 08:15:15 server sshd[1009]: Failed password for invalid user ftp from 203.0.113.1 port 51128 ssh2
+Aug 30 08:15:17 server sshd[1010]: Accepted password for user_d from 198.51.100.2 port 45680 ssh2
