@@ -3,32 +3,46 @@
 {% block title %}Log Analyzer{% endblock %}
 
 {% block main %}
-<h1 class="title">Log Analyzer</h1>
-<p class="subtitle">Overview of login statistics</p>
-<hr class="separator">
-
-<!-- Statistics -->
-<div class="stats-grid">
-    <div class="stat-box">
-        <p class="stat-number">{{ stats.accepted_count }}</p>
-        <div>Successful Logins</div>
+<div class="page-wrapper">
+    <!-- Panel instrukcji po lewej -->
+    <div class="instructions">
+        <h2>Instructions</h2>
+        <p>
+            1. Upload your SSH log file.<br><br>
+            2. View successful and failed logins.<br><br>
+            3. Check top attacking IPs.<br><br>
+            4. Use the "Reset Database" button to clear logs.<br>
+        </p>
     </div>
-    <div class="stat-box">
-        <p class="stat-number">{{ stats.failed_count }}</p>
-        <div>Failed Logins</div>
+
+    <!-- Główny kontener pozostaje bez zmian -->
+    <div class="main-container">
+        <h1 class="title">SSH Log Analyzer</h1>
+        <p class="subtitle">Overview of login statistics</p>
+        <hr class="separator">
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <p class="stat-number">{{ stats.accepted_count }}</p>
+                <div>Successful Logins</div>
+            </div>
+            <div class="stat-box">
+                <p class="stat-number">{{ stats.failed_count }}</p>
+                <div>Failed Logins</div>
+            </div>
+        </div>
+
+        <h2>Top 5 Attacking IPs:</h2>
+        <ul>
+            {% for ip in stats.top_ips %}
+                <li>{{ ip.ip }} - {{ ip.count }} {{ "attempts" if ip.count > 1 else "attempt" }}</li><br>
+            {% endfor %}
+        </ul>
+
+        <div class="action-buttons">
+            <a href="/upload_page" class="btn">Upload Log</a>
+            <a href="/reset_page" class="btn">Reset Database</a>
+        </div>
     </div>
-</div>
-
-<h2>Top 5 Attacking IPs</h2>
-<ul>
-    {% for ip in stats.top_ips %}
-        <li>{{ ip.ip }} - {{ ip.count }} {{ "attempts" if ip.count > 1 else "attempt" }}</li>
-    {% endfor %}
-</ul>
-
-<!-- Action Links -->
-<div class="action-buttons">
-    <a href="/upload_page" class="btn">Upload Log</a>
-    <a href="/reset_page" class="btn">Reset Database</a>
 </div>
 {% endblock %}

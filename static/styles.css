@@ -41,6 +41,27 @@ a:hover {
     box-shadow: 0 0 5px #ff6eff;    /* delikatny różowy neon */
 }
 
+.page-wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch; /* oba panele tej samej wysokości */
+}
+
+.instructions {
+    flex: 0 0 250px;       /* stała szerokość panelu instrukcji */
+    background-color: #0b0c0e;
+    border: 2px solid #00ffe7;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 0 10px #ff6eff;
+    color: #00ffe7;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.main-container {
+    flex: 1;               /* zajmuje resztę miejsca */
+}
+
 /* Statystyki */
 .stats-grid {
     display: flex;
@@ -73,6 +94,14 @@ a:hover {
     opacity: 0.5;
 }
 
+.footer {
+    margin-top: 1rem;
+    color: #00ffe7;
+    text-align: center;
+    text-shadow: 0 0 5px #00ffe7;
+}
+
+
 /* Przycisk i akcje */
 .action-buttons {
     display: flex;
@@ -95,3 +124,10 @@ a:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px #0ff;
 }
+
+@media (max-width: 600px) {
+    .stats-grid {
+        flex-direction: column;
+    }
+}
+
