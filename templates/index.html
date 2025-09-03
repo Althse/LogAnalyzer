@@ -8,13 +8,13 @@
     <div class="col-12 col-md-4">
         <div class="card neon-card h-100">
             <div class="card-body">
-                <h2 class="instructions">Instructions</h2>
-                <p class="instructions">
-                    1. Upload your SSH log file.<br><br>
-                    2. View successful and failed logins.<br><br>
-                    3. Check top attacking IPs.<br><br>
-                    4. Use the "Reset Database" button to clear logs.<br>
-                </p>
+                <h2 class="instructions-title">Instructions</h2>
+                <ul class="instructions-text">
+                    <li>Upload your SSH log file.</li>
+                    <li>View successful and failed logins.</li>
+                    <li>Check top attacking IPs.</li>
+                    <li>Use the "Reset Database" button to clear logs.</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -24,28 +24,28 @@
         <div class="card neon-card">
             <div class="card-body">
                 <h1 class="title">SSH Log Analyzer</h1>
-                <p class="instructions">Overview of login statistics</p>
+                <p class="instructions-text">Overview of login statistics</p>
                 <hr class="separator">
 
                 <div class="row text-center mb-3">
                     <div class="col">
                         <div class="stat-box">
                             <p class="stat-number">{{ stats.accepted_count }}</p>
-                            <div>Successful Logins</div>
+                            <p>Successful Logins</p>
                         </div>
                     </div>
                     <div class="col">
                         <div class="stat-box">
                             <p class="stat-number">{{ stats.failed_count }}</p>
-                            <div>Failed Logins</div>
+                            <p>Failed Logins</p>
                         </div>
                     </div>
                 </div>
 
                 <h2>Top 5 Attacking IPs:</h2>
-                <ul>
+                <ul class="top-ips">
                     {% for ip in stats.top_ips %}
-                        <li class="instructions">{{ ip.ip }} - {{ ip.count }} {{ "attempts" if ip.count > 1 else "attempt" }}</li><br>
+                        <li>{{ ip.ip }} - {{ ip.count }} {{ "attempts" if ip.count > 1 else "attempt" }}</li>
                     {% endfor %}
                 </ul>
 

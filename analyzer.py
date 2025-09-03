@@ -6,7 +6,12 @@ from datetime import datetime
 DB_NAME = 'log_database.db'
 RESET_LOG_FILE = 'reset_log.txt'
 
+
 def parse_logs(log_file_path=None, log_content=None):
+    """
+    Parses SSH logs and stores relevant events in the database.
+    Either provide log_file_path or log_content as a string.
+    """
     if not log_file_path and not log_content:
         raise ValueError("Provide log_file_path or log_content.")
 
@@ -23,27 +28,41 @@ def parse_logs(log_file_path=None, log_content=None):
         """)
 
         ip_pattern = r"(\d{1,3}(?:\.\d{1,3}){3}|[a-fA-F0-9:]+)"
-        failed_pattern = re.compile(rf"Failed password for (?:invalid user\s+)?(\S+) from {ip_pattern}")
-        accepted_pattern = re.compile(rf"Accepted password for (\S+) from {ip_pattern}")
+        failed_pattern = re.compile(
+            rf"Failed password for (?:invalid user\s+)?(\S+) from {ip_pattern}"
+        )
+        accepted_pattern = re.compile(
+            rf"Accepted password for (\S+) from {ip_pattern}"
+        )
 
         if log_content:
-            lines = log_content.splitlines()
+            lines = str(log_content).splitlines()
         else:
-            assert log_file_path is not None  # <-- tu
+            assert log_file_path is not None
             with open(log_file_path) as f:
                 lines = f.readlines()
 
         for line in lines:
-            if match := failed_pattern.search(line):
+            match = failed_pattern.search(line)
+            if match:
                 user, ip = match.groups()
-                cursor.execute("INSERT INTO logs (event_type, user_account, ip_address, original_line) VALUES (?, ?, ?, ?)",
-                               ("FAILED_LOGIN", user, ip, line.strip()))
-            elif match := accepted_pattern.search(line):
-                user, ip = match.groups()
-                cursor.execute("INSERT INTO logs (event_type, user_account, ip_address, original_line) VALUES (?, ?, ?, ?)",
-                               ("ACCEPTED_LOGIN", user, ip, line.strip()))
+                cursor.execute(
+                    "INSERT INTO logs (event_type, user_account, ip_address, original_line) "
+                    "VALUES (?, ?, ?, ?)",
+                    ("FAILED_LOGIN", user, ip, line.strip())
+                )
+                continue
 
-        return f"Data from logs added into database '{DB_NAME}'."
+            match = accepted_pattern.search(line)
+            if match:
+                user, ip = match.groups()
+                cursor.execute(
+                    "INSERT INTO logs (event_type, user_account, ip_address, original_line) "
+                    "VALUES (?, ?, ?, ?)",
+                    ("ACCEPTED_LOGIN", user, ip, line.strip())
+                )
+
+    return f"Data from logs added into database '{DB_NAME}'."
 
 
 def generate_report():
@@ -75,9 +94,9 @@ def generate_report():
 
     conn.close()
 
-    report = "\n" + "="*40
+    report = "\n" + "=" * 40
     report += "\n        LOG ANALYSIS REPORT\n"
-    report += "="*40 + "\n"
+    report += "=" * 40 + "\n"
     report += f"Number of successful logins: {accepted_count}\n"
     report += f"Number of failed login attempts: {failed_count}\n\n"
     report += "Top 5 attacking IP addresses:\n"
@@ -89,7 +108,7 @@ def generate_report():
     else:
         report += " - No failed login attempts recorded.\n"
 
-    report += "="*40 + "\n"
+    report += "=" * 40 + "\n"
     return report
 
 
@@ -108,6 +127,7 @@ def reset_database():
         f.write(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Database reset\n")
 
     return f"Database has been reset. Reset logged in '{RESET_LOG_FILE}'."
+
 
 def main():
     if len(sys.argv) < 2:

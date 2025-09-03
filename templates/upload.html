@@ -8,9 +8,8 @@
         <div class="card neon-card">
             <div class="card-body">
                 <h1 class="title">Upload Log</h1>
-                <p class="instructions">Upload a SSH log file or use an example log:</p>
+                <p class="instructions-text">Upload a SSH log file or use an example log:</p>
 
-                <!-- Upload from your computer -->
                 <form id="uploadForm" method="POST" enctype="multipart/form-data" class="mb-3">
                     <div class="input-group">
                         <input type="file" name="logfile" class="form-control" required>
@@ -18,11 +17,10 @@
                     </div>
                 </form>
 
-                <p id="uploadMsg" class="mt-2" style="color: #0ff;"></p>
+                <p id="uploadMsg" class="message"></p>
 
                 <hr class="separator">
 
-                <!-- Example logs -->
                 {% if examples %}
                 <h3>Example Logs</h3>
                 <div id="exampleLogs" class="d-flex flex-wrap gap-2">
@@ -46,33 +44,25 @@ function showMessage(msg) {
 document.getElementById('uploadForm').onsubmit = function(e) {
     e.preventDefault();
     var formData = new FormData(this);
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/upload_page', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            showMessage("Upload successful!");
-            setTimeout(function() { window.location.href = '/'; }, 1500);
-        } else {
-            showMessage("Upload failed.");
-        }
-    };
-    xhr.send(formData);
+    fetch('/upload_page', { method: 'POST', body: formData })
+        .then(res => {
+            if(res.ok) {
+                showMessage("Upload successful!");
+                setTimeout(() => window.location.href = '/', 1500);
+            } else showMessage("Upload failed.");
+        });
 };
 
 function uploadExample(filename) {
     var formData = new FormData();
     formData.append('example_file', filename);
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/upload_page', true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            showMessage('Example log "' + filename + '" uploaded successfully!');
-            setTimeout(function() { window.location.href = '/'; }, 1500);
-        } else {
-            showMessage("Upload failed.");
-        }
-    };
-    xhr.send(formData);
+    fetch('/upload_page', { method: 'POST', body: formData })
+        .then(res => {
+            if(res.ok) {
+                showMessage(`Example log "${filename}" uploaded successfully!`);
+                setTimeout(() => window.location.href = '/', 1500);
+            } else showMessage("Upload failed.");
+        });
 }
 </script>
 {% endblock %}

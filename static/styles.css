@@ -1,40 +1,47 @@
 body {
     font-family: 'Roboto Mono', monospace;
-    background-color: #0b0c0e !important;
-    color: #00ffe7 !important;
+    background-color: #0a0b0f; /* ciemniejsze, gładkie tło */
+    color: #39ff14; /* neonowa zieleń tekst */
 }
 
 /* Neonowe karty */
 .neon-card {
-    background-color: #0b0c0e;
-    border: 2px solid #00ffe7;
+    background-color: #0a0b0f;
+    border: 2px solid #39ff14; /* zielony border */
     border-radius: 10px;
-    box-shadow: 0 0 15px #ff6eff;
+    box-shadow: 0 0 15px #ff4ec8; /* neon magenta */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.neon-card:hover {
+    box-shadow: 0 0 20px #ff4ec8, 0 0 10px #39ff14; /* delikatny neonowy glow */
 }
 
 /* Nagłówki */
 h1, h2, h3, h4, h5, h6, a {
-    color: #ff6eff;
+    color: #ff4ec8; /* neon magenta */
 }
 
 /* Statystyki */
 .stat-box {
-    border: 1px solid #00ffe7;
+    border: 1px solid #39ff14; /* zielony border */
     border-radius: 8px;
     padding: 1rem;
-    box-shadow: 0 0 5px #ff6eff;
+    box-shadow: 0 0 5px #ff4ec8; /* neon magenta */
+    color: #39ff14;
 }
 
 .stat-number {
     font-size: 2rem;
     font-weight: bold;
+    color: #ff4ec8; /* liczby w neon magenta */
 }
 
 /* Przycisk neonowy */
 .btn-neon {
-    border: 1px solid #ff6eff;
-    background-color: #0b0c0e;
-    color: #00ffe7;
+    border: 1px solid #ff4ec8; /* neon magenta */
+    background-color: #0a0b0f;
+    color: #39ff14; /* neon zielony */
     padding: 0.5rem 1rem;
     border-radius: 5px;
     cursor: pointer;
@@ -42,32 +49,58 @@ h1, h2, h3, h4, h5, h6, a {
 }
 
 .btn-neon:hover {
-    background: linear-gradient(45deg, #f0f, #0ff);
+    background: linear-gradient(45deg, #ff4ec8, #39ff14);
     transform: scale(1.05);
-    box-shadow: 0 0 15px #0ff;
+    box-shadow: 0 0 15px #39ff14, 0 0 25px #ff4ec8; /* mocniejszy neonowy glow */
 }
 
 /* Footer */
-footer {
+.footer {
     text-align: center;
     margin-top: 1rem;
-    color: #0ff !important;
+    color: #39ff14; /* neonowa zieleń */
+    text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14;
+    animation: neonPulse 2s infinite alternate;
+    transition: text-shadow 0.3s ease-in-out;
 }
 
-
-/* Instrukcje w boksie */
-.instructions {
-    color: #00ffe7;
+.footer:hover {
+    text-shadow: 0 0 15px #39ff14, 0 0 25px #39ff14, 0 0 35px #39ff14; /* pulsowanie przy hover */
 }
 
-/* Napisy w statystykach */
-.stat-box {
-    color: #00ffe7;
+@keyframes neonPulse {
+    0% {
+        text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14;
+    }
+    50% {
+        text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
+    }
+    100% {
+        text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14;
+    }
 }
 
-/* Dodatkowo liczby mogą być mocniejsze */
-.stat-number {
-    color: #ff00ff;   /* np. róż dla kontrastu */
-    font-size: 2rem;
-    font-weight: bold;
+/* Instrukcje */
+.instructions-title {
+    color: #ff4ec8; /* magenta */
+}
+
+.instructions-text {
+    color: #39ff14; /* zielony */
+    line-height: 1.5;
+}
+
+.instructions-text li {
+    margin-bottom: 0.8rem;
+}
+
+/* Wiadomości upload/reset */
+.message {
+    color: #39ff14; /* zielony */
+}
+
+/* Top IPs list spacing */
+.top-ips li {
+    margin-bottom: 0.5rem;
+    color: #39ff14; /* zielony */
 }
