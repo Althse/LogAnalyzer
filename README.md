@@ -25,7 +25,7 @@ cd LogAnalyzer
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # macOS/Linux
-# lub: venv\Scripts\activate  # Windows
+# or: venv\Scripts\activate  # Windows
 ```
 4.  **Install dependencies:**
 ```bash
