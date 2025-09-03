@@ -3,30 +3,40 @@
 {% block title %}Upload Log{% endblock %}
 
 {% block main %}
-<h1>Upload Log</h1>
-<p>Upload a SSH log file or use an example logs:</p>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+        <div class="card neon-card">
+            <div class="card-body">
+                <h1 class="title">Upload Log</h1>
+                <p class="instructions">Upload a SSH log file or use an example log:</p>
 
-<!-- Upload from your computer -->
-<form id="uploadForm" method="POST" enctype="multipart/form-data">
-    <input type="file" name="logfile" required>
-    <button class="btn" type="submit">Upload</button>
-</form>
+                <!-- Upload from your computer -->
+                <form id="uploadForm" method="POST" enctype="multipart/form-data" class="mb-3">
+                    <div class="input-group">
+                        <input type="file" name="logfile" class="form-control" required>
+                        <button class="btn btn-neon" type="submit">Upload</button>
+                    </div>
+                </form>
 
-<p id="uploadMsg" style="color: #0ff; margin-top: 1rem;"></p>
+                <p id="uploadMsg" class="mt-2" style="color: #0ff;"></p>
 
-<hr>
+                <hr class="separator">
 
-<!-- Example logs -->
-{% if examples %}
-<h3>Example Logs</h3>
-<div id="exampleLogs">
-    {% for f in examples %}
-        <button class="btn" type="button" onclick="uploadExample('{{ f }}')">{{ f }}</button>
-    {% endfor %}
+                <!-- Example logs -->
+                {% if examples %}
+                <h3>Example Logs</h3>
+                <div id="exampleLogs" class="d-flex flex-wrap gap-2">
+                    {% for f in examples %}
+                        <button class="btn btn-neon" type="button" onclick="uploadExample('{{ f }}')">{{ f }}</button>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>No example logs found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-{% else %}
-<p>No example logs found.</p>
-{% endif %}
 
 <script>
 function showMessage(msg) {
