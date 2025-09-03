@@ -15,7 +15,7 @@ SSH Log Analyzer is a Python web application developed as a final project for th
 ## Installation
 1.  **Clone the repository:**
 ```bash
-git clone [https://github.com/Althse/LogAnalyzer]
+git clone https://github.com/Althse/LogAnalyzer
 ```
 2.  **Navigate to the project folder:**
 ```bash
@@ -63,8 +63,8 @@ Top 5 Attacking IPs:
 ```
 
 ## Author
-* [Sławomir Cieślik]
-* **LinkedIn:** [https://www.linkedin.com/in/s%C5%82awomir-cie%C5%9Blik-646bb6bb/]
-* **GitHub:** [https://github.com/Althse]
+* Sławomir Cieślik
+* **LinkedIn:** https://www.linkedin.com/in/s%C5%82awomir-cie%C5%9Blik-646bb6bb/
+* **GitHub:** https://github.com/Althse
 
 
