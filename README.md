@@ -1,5 +1,7 @@
 # SSH Log Analyzer
 
+### Video Demo:  (https://www.youtube.com/watch?v=E7hcJwKyVl8)
+
 ## Project Description
 SSH Log Analyzer is a Python web application developed as a final project for the CS50 course. The tool parses server log files (e.g., SSH), counts failed and successful login attempts, and identifies the top attacking IP addresses. The web interface allows easy upload of logs, viewing statistics, and resetting the database.
 
