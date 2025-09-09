@@ -1,0 +1,5 @@
+Aug 21 10:20:05 servername sshd[1234]: Failed password for invalid user admin from 203.0.113.1 port 51122 ssh2
+Aug 21 10:20:06 servername sshd[1235]: Accepted password for user_a from 198.51.100.2 port 45678 ssh2
+Aug 21 10:20:07 servername sshd[1236]: Failed password for root from 203.0.113.1 port 51123 ssh2
+Aug 21 10:20:08 servername sshd[1237]: Failed password for user_b from 198.51.100.2 port 51124 ssh2
+Aug 21 10:20:09 servername sshd[1238]: Failed password for invalid user tester from 203.0.113.1 port 51125 ssh2

@@ -1,0 +1,30 @@
+Dec 1 10:00:02 server sshd[1244]: Failed password for test from 8066:9f78:b4a5:cb0:4717:30a8:add1:4dfe port 42409 ssh2
+Dec 1 10:00:49 server sshd[1285]: Failed password for test from 4526:6625:7b7a:d97d:21c7:a84b:b38c:5af7 port 37213 ssh2
+Dec 1 10:00:34 server sshd[1230]: Failed password for invalid user root from fffc:8ba7:4b7e:b418:45de:9ef6:bb10:e1f4 port 47267 ssh2
+Dec 1 10:00:10 server sshd[1275]: Accepted password for invalid user root from 14.255.156.40 port 31566 ssh2
+Dec 1 10:00:34 server sshd[1294]: Accepted password for invalid user user_c from 79.234.122.249 port 14376 ssh2
+Dec 1 10:00:06 server sshd[1271]: Accepted password for user_a from 102.211.194.108 port 17295 ssh2
+Dec 1 10:00:02 server sshd[1299]: Accepted password for invalid user guest from 193.234.191.15 port 48214 ssh2
+Dec 1 10:00:44 server sshd[1232]: Failed password for invalid user guest from 11a7:bfe6:68a6:4a24:8038:7384:62fa:3ec4 port 58207 ssh2
+Dec 1 10:00:26 server sshd[1230]: Accepted password for root from 28d0:c617:21fc:c44d:2ffa:827c:c56e:e7c7 port 43047 ssh2
+Dec 1 10:00:07 server sshd[1255]: Accepted password for guest from 33.201.15.119 port 6650 ssh2
+Dec 1 10:00:16 server sshd[1231]: Failed password for user_c from 311b:7ba2:7964:5d69:e1b5:f319:4fb4:4bbd port 42965 ssh2
+Dec 1 10:00:05 server sshd[1294]: Failed password for invalid user guest from ebf7:f638:e9e5:d849:5076:f9b4:37d5:442 port 49116 ssh2
+Dec 1 10:00:14 server sshd[1234]: Accepted password for invalid user user_b from d7d4:83a6:d6bf:2cad:553:bb7d:82f3:7123 port 57778 ssh2
+Dec 1 10:00:49 server sshd[1237]: Failed password for invalid user guest from f454:7605:e621:a119:7102:b7ec:bd13:aa0b port 35979 ssh2
+Dec 1 10:00:37 server sshd[1259]: Accepted password for invalid user root from d79a:3ec0:bded:a818:a853:9401:dc42:2278 port 45887 ssh2
+Dec 1 10:00:07 server sshd[1273]: Accepted password for invalid user user_c from 856c:1982:4337:79f7:78ad:acf2:176:c200 port 30032 ssh2
+Dec 1 10:00:45 server sshd[1236]: Accepted password for user_a from 9ebe:3f4f:bffb:8813:e5d5:678:6df4:7453 port 23393 ssh2
+Dec 1 10:00:45 server sshd[1269]: Failed password for invalid user user_d from efa5:c3ca:a3f5:21fa:8d98:83e7:6c19:386e port 36115 ssh2
+Dec 1 10:00:18 server sshd[1235]: Accepted password for user_d from 174.122.14.27 port 26983 ssh2
+Dec 1 10:00:14 server sshd[1235]: Failed password for invalid user user_b from ea39:3a40:6c46:dd01:a0f0:21ee:af5c:e604 port 65014 ssh2
+Dec 1 10:00:26 server sshd[1298]: Accepted password for user_e from 9311:3aa6:539c:926b:69bd:21dc:4268:23d6 port 50077 ssh2
+Dec 1 10:00:07 server sshd[1268]: Accepted password for invalid user user_d from 1.185.46.90 port 17928 ssh2
+Dec 1 10:00:54 server sshd[1246]: Failed password for invalid user user_e from 7cfd:3d46:9a42:4e66:c130:99dc:1917:828e port 11652 ssh2
+Dec 1 10:00:02 server sshd[1240]: Failed password for invalid user guest from 173.171.97.247 port 1417 ssh2
+Dec 1 10:00:03 server sshd[1272]: Failed password for admin from fa65:ca3f:5687:e55e:1db5:5d92:dfcd:218f port 12864 ssh2
+Dec 1 10:00:58 server sshd[1282]: Failed password for invalid user user_b from 6f1b:6ccf:ee2:2458:34ac:9e14:eb2a:7363 port 28719 ssh2
+Dec 1 10:00:10 server sshd[1273]: Accepted password for user_b from 2cb6:69af:3489:62bd:9f4d:f3d7:584b:346f port 59028 ssh2
+Dec 1 10:00:11 server sshd[1297]: Accepted password for invalid user user_d from c38f:c8f3:3982:302c:c666:5d96:fa41:66e5 port 61096 ssh2
+Dec 1 10:00:32 server sshd[1259]: Failed password for invalid user user_e from e6bc:4ed6:3654:976b:8507:c6df:2698:2ec3 port 44665 ssh2
+Dec 1 10:00:05 server sshd[1284]: Accepted password for invalid user guest from 103c:18d0:78b0:6707:7dd4:8658:cb09:6d24 port 54097 ssh2

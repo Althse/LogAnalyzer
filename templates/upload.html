@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}Upload Log{% endblock %}
+
+{% block main %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+        <div class="card neon-card">
+            <div class="card-body">
+                <h1 class="title">Upload Log</h1>
+                <p class="instructions-text">Upload a SSH log file or use an example log:</p>
+
+                <form id="uploadForm" method="POST" enctype="multipart/form-data" class="mb-3">
+                    <div class="input-group">
+                        <input type="file" name="logfile" class="form-control" required>
+                        <button class="btn btn-neon" type="submit">Upload</button>
+                    </div>
+                </form>
+
+                <p id="uploadMsg" class="message"></p>
+
+                <hr class="separator">
+
+                {% if examples %}
+                <h3>Example Logs</h3>
+                <div id="exampleLogs" class="d-flex flex-wrap gap-2">
+                    {% for f in examples %}
+                        <button class="btn btn-neon" type="button" onclick="uploadExample('{{ f }}')">{{ f }}</button>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p>No example logs found.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showMessage(msg) {
+    document.getElementById('uploadMsg').textContent = msg;
+}
+
+document.getElementById('uploadForm').onsubmit = function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    fetch('/upload', { method: 'POST', body: formData })
+        .then(res => {
+            if(res.ok) {
+                showMessage("Upload successful!");
+                setTimeout(() => window.location.href = '/', 1700);
+            } else showMessage("Upload failed.");
+        });
+};
+
+function uploadExample(filename) {
+    var formData = new FormData();
+    formData.append('example_file', filename);
+    fetch('/upload', { method: 'POST', body: formData })
+        .then(res => {
+            if(res.ok) {
+                showMessage(`Example log "${filename}" uploaded successfully!`);
+                setTimeout(() => window.location.href = '/', 1700);
+            } else showMessage("Upload failed.");
+        });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #0a0b0f; 
+    color: #39ff14; 
+}
+
+/* Neon cards */
+.neon-card {
+    background-color: #0a0b0f;
+    border: 2px solid #39ff14; 
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff4ec8; 
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.neon-card:hover {
+    box-shadow: 0 0 20px #ff4ec8, 0 0 10px #39ff14; /* neon glow */
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6, a {
+    color: #ff4ec8; 
+}
+
+/* Statics */
+.stat-box {
+    border: 1px solid #39ff14; 
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 0 5px #ff4ec8; 
+    color: #39ff14;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff4ec8; 
+}
+
+/* Neon button */
+.btn-neon {
+    border: 1px solid #ff4ec8; 
+    background-color: #0a0b0f;
+    color: #39ff14; 
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-neon:hover {
+    background: linear-gradient(45deg, #ff4ec8, #39ff14);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #39ff14, 0 0 25px #ff4ec8; 
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 1rem;
+    color: #39ff14; 
+    text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14;
+    animation: neonPulse 2s infinite alternate;
+    transition: text-shadow 0.3s ease-in-out;
+}
+
+.footer:hover {
+    text-shadow: 0 0 15px #39ff14, 0 0 25px #39ff14, 0 0 35px #39ff14; 
+}
+
+@keyframes neonPulse {
+    0% {
+        text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14;
+    }
+    50% {
+        text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 30px #39ff14;
+    }
+    100% {
+        text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 15px #39ff14;
+    }
+}
+
+/* Instructions */
+.instructions-title {
+    color: #ff4ec8; 
+}
+
+.instructions-text {
+    color: #39ff14; 
+    line-height: 1.5;
+}
+
+.instructions-text li {
+    margin-bottom: 0.8rem;
+}
+
+/* Message upload/reset */
+.message {
+    color: #39ff14; 
+}
+
+/* Top IPs list spacing */
+.top-ips li {
+    margin-bottom: 0.5rem;
+    color: #39ff14; 
+}

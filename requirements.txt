@@ -1,0 +1,8 @@
+# SSH Log Analyzer - Python Web App
+# CS50 Final Project
+# Author: Sławomir Cieślik
+
+# Web framework for routing, templates, and request handling
+Flask
+
+# Python 3.10+ recommended

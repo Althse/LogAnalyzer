@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}Log Analyzer{% endblock %}
+
+{% block main %}
+<div class="row g-3">
+    <!-- Instructions -->
+    <div class="col-12 col-md-4">
+        <div class="card neon-card h-100">
+            <div class="card-body">
+                <h2 class="instructions-title">Instructions</h2>
+                <ul class="instructions-text">
+                    <li>Upload your SSH log file.</li>
+                    <li>View successful and failed logins.</li>
+                    <li>Check top attacking IPs.</li>
+                    <li>Use the "Reset Database" button to clear logs.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main window -->
+    <div class="col-12 col-md-8">
+        <div class="card neon-card">
+            <div class="card-body">
+                <h1 class="title">SSH Log Analyzer</h1>
+                <p class="instructions-text">Overview of login statistics</p>
+                <hr class="separator">
+
+                <div class="row text-center mb-3">
+                    <div class="col">
+                        <div class="stat-box">
+                            <p class="stat-number">{{ stats.accepted_count }}</p>
+                            <p>Successful Logins</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="stat-box">
+                            <p class="stat-number">{{ stats.failed_count }}</p>
+                            <p>Failed Logins</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Top 5 Attacking IPs:</h2>
+                <ul class="top-ips">
+                    {% for ip in stats.top_ips %}
+                        <li>{{ ip.ip }} - {{ ip.count }} {{ "attempts" if ip.count > 1 else "attempt" }}</li>
+                    {% endfor %}
+                </ul>
+
+                <div class="d-flex gap-2 mt-3">
+                    <a href="/upload" class="btn btn-neon">Upload Log</a>
+                    <a href="/reset" class="btn btn-neon">Reset Database</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
